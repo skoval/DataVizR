@@ -1,251 +1,158 @@
 ---
-title       : Reproducible Research with R
-subtitle    : Made with slidify
+title       : Data Viz in R
 author      : Stephanie Kovalchik
 job         :  RAND Statistics Group
-framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
-highlighter : highlight.js  # {highlight.js, prettify, highlight}
-hitheme     : tomorrow      # 
-widgets     : []            # {mathjax, quiz, bootstrap}
-mode        : selfcontained # {standalone, draft}
+output :  html_document
+mode : selfcontained
+framework: revealjs
+hitheme : zenburn
+revealjs:
+  theme: solarized
+  transition: none
+  center: "true"
 url:
   assets: ./assets
 --- 
 
-## Reproducibility
-
-> * Reproducibile research is research that can be independently replicated
-
-> * Traditionally, researchers have separated data analysis and the documentation describing the analysis and its findings
-
-> * This makes updating work inefficient and reproducibility difficult or even impossible
-
-> * Aiming for _reproducibility_ gives you _reusability_ for free
-
---- 
-
-## Heroes of Reproducible Research
-
-<div style='text-align: center;'>
-    <img alt="Coombes and Baggerly" height='420' src='./assets/img/coombes_baggerly_nytimes.jpg' />
-</div>
-
-"Keith Baggerly, left, and Kevin Coombes, statisticians at M. D. Anderson Cancer Center, [found flaws in research on tumors](http://www.nytimes.com/2011/07/08/health/research/08genes.html?_r=0)." Credit: Michael Stravato for The New York Times
+<img src="assets/img/dataviz_ad.png" />
 
 ---
 
-<div style='text-align: center;'>
-    <img alt="Development Cycle" height='560' src='./assets/img/development_cycle.png' />
-</div>
+## Data Viz Versus Graphics
 
-> The goal of this talk is to introduce several tools in R that help to make the practice of the development cycle easy.
+<p style="align:left;color:#669999;background-color:#e0eaea;padding:2%;"><i>Data visualizations</i> are interactive graphics designed for the Web.</p>
 
----
+<img src="assets/img/dataviz_model.png" width='400px' height='200px' />
 
-## Getting Started
-
-1. Get [RStudio](https://www.rstudio.com)
-
-2. Install `knitr` and `rmarkdown` packages
-
-3. Get Git
+* Unlike traditional static graphical displays, data visualizations are:
+  - Built for the Web
+  - Interactive
+  - Dynamic
 
 ---
 
-## RStudio
+## Why Data Viz in R?
 
-> * [RStudio](https://www.rstudio.com) is a free integrated development environment for R
+* Majority of R tools for data viz are basically a set of functions to write javascript (js) output
 
-> * Available for all major platforms
+* Chances are, if you are looking at an interactive graphic on the Web, it's written in js using a library like d3
 
-> * The IDE provides a windowing system to help organize the workspace
-
-> * There are [built-in tools](https://www.rstudio.com/products/rstudio/features/) for directed code execution, syntax highlighting, and debugging
-
-> * There is a GUI for many common tasks including the creation and processing of reproducible reports
-
-
+* But...<u>what if you don't know js?</u> or <u>you have to do a lot of analysis</u> to produce the output for your chart?
 
 ---
 
-## R Markdown
+## Popular R Tools for Data Viz
 
-> - Dynamic documents in R start with an R Markdown file
+* ggvis
 
-> - Markdown is a markup language with minimal syntax
-    - Easier than LaTeX
-    - Recognized by many rendering tools
-    - NOT exclusive to R
-    
-> - R Markdown builds on markdown syntax but adds the ability to embed executable R code inline or as code chunks
+* googleVis
 
-> - The `knit` function of knitr is used to produce a file with text, code, and results of code
+* plotly
 
+* rCharts
 
---- 
-
-## R Markdown Resources
-
-<br>
-
-* [Cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) - Workflow steps and basic features
-
-* [Reference](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) - Details on syntax and chunk options
+* htmlwidgets
 
 ---
 
-## Minimal Example: R Markdown
+## Overview
 
-<br>
-
-File available on [GitHub](https://github.com/skoval/Reproducibility/blob/master/examples/minimal_markdown.Rmd)
-
---- &twocol .small
-
-## The knitr Package
-
-
-*** =left 
-
-* <img alt="Yihui" height='80' src='./assets/img/yihui.jpg' /> Author and R Ninja, Yihui Xie
-
-* Provides tools for creating dynamic documents
-
-* Use to weave text and code in multiple languages
-
-* Multiple input formats: Rnw, Markdown, HTML, LaTeX
-
-* Multiple output formats: pdf, Word, HTML
-  
-* RStudio's default engine for weaving dynamic documents is [knitr](http://yihui.name/knitr/demo/rstudio/)
-
-*** =right
-
-<div style='text-align: center;'>
-    <img alt="knitr book" height='420' src='./assets/img/knitr_book.png' />
-</div>
+<img src="assets/img/comparison_table.png" />
 
 ---
 
-## Knit in Console or RStudio?
+## Demonstration
 
-You can knit R Markdown files manually with `knit` or with RStudio's GUI. In other words, the following are equivalent:
+* It is easiest to understand the differences between the visualization tools by seeing them in action
+
+* In what follows, I'll use R's built-in dataset <code>state.x77</code> to conduct several charting exercises
 
 
 ```r
-knit("minimal_example.Rmd")
+data(state)
+state.x77 <- as.data.frame(state.x77)
+str(state.x77)
 ```
 
-<br>
-
-<div style='text-align: center;'>
-    <img alt="knitr gui" height='320' src='./assets/img/knitr_gui.png' />
-</div>
-
----
-
-## Knit in Console or RStudio?
-
-> * If you want to use input other than R Markdown, you will want to use `knit` directly (i.e. on the command line).
-
-> * The advantage of `knitr` is that it provides more control and flexibility in document inputs
-
-> * This is often needed for creating publication-ready reports
+```
+## 'data.frame':	50 obs. of  8 variables:
+##  $ Population: num  3615 365 2212 2110 21198 ...
+##  $ Income    : num  3624 6315 4530 3378 5114 ...
+##  $ Illiteracy: num  2.1 1.5 1.8 1.9 1.1 0.7 1.1 0.9 1.3 2 ...
+##  $ Life Exp  : num  69 69.3 70.5 70.7 71.7 ...
+##  $ Murder    : num  15.1 11.3 7.8 10.1 10.3 6.8 3.1 6.2 10.7 13.9 ...
+##  $ HS Grad   : num  41.3 66.7 58.1 39.9 62.6 63.9 56 54.6 52.6 40.6 ...
+##  $ Frost     : num  20 152 15 65 20 166 139 103 11 60 ...
+##  $ Area      : num  50708 566432 113417 51945 156361 ...
+```
 
 ---
 
-## Minimal Example: R Latex
+## Task 1. Distribution of State Illiteracy
+
+* Make the following static histogram interactive
 
 
-File available on [GitHub](https://github.com/skoval/Reproducibility/blob/master/examples/minimal_markdown.Rtex)
+```r
+# Static plot
+library(ggplot2)
+ggplot(state.x77, aes(x = Illiteracy)) +
+  geom_histogram(binwidth = 0.5, fill = "#663399")
+```
 
-
----
-
-## Version Control
-
-
-> * _Version control_ describes the process of tracking the history of a project's development so that developers can easily see changes made and revert to earlier versions
-
-> * Git is the most popular version control tool
-
-> * [Github](https://github.com) is a cloud service for sharing and collaborating on projects using Git 
-
-> * <img alt="Git" height='120' src='./assets/img/try_git.png' /> 
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2-1.png) 
 
 ---
 
-## Git Cheat Sheet
+## Demo - Histogram
+
+[link]
+
+---
+
+## Task 2. State Illiteracy Versus Income 
+
+* Make the following scatterplot interactive
 
 
-<div style='text-align: center;'>
-    <img alt="Git Cheat Sheet" height='480' src='./assets/img/git_cheatsheet.png' />
-</div>
+```r
+# Static plot
+ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
+  geom_point(size = 3, col = "#663399")   
+```
 
-Source: [http://git.or.cz/](http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf)
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3-1.png) 
 
---- .small
+---
 
+## Task 3. Add State as a Tooltip
 
-## Getting Started
+---
 
-* You can work with [Git](http://git-scm.com) on the command line
-
-* Or, use a GUI for [Windows](https://windows.github.com) or [Mac](https://mac.github.com)
-
-|Term| What it Means |
-|:--------:|:--------:|
-|repo| The "project", i.e. directory where Git project resides|
-|commit| Saving changes to version history (NOT the same as saving files)|
-|origin|Alias usually given to remote repo|
-|master|Alias usually given to local repo|
-
-<br>
-
-|Command | What it Does |
-|:--------:|:--------:|
-|git init | Start a repo|
-|git add | Add files to repo|
-|git commit -m|Commit changes to history and add message|
-|git push origin master|Push commits to remote alias|
-
---- .small
-
-## RAND Code Exchange
-
-<div style='text-align: center;'>
-    <img alt="code exchange" height='280' src='./assets/img/code_exchange.png' />
-</div>
-
-> * RAND's firewall prevents interacting with remote repos on GitHub 
-
-> * This is a barrier when collaborating on projects with external researchers
-
-> * However, for internal projects, RAND's [Code Exchange](code-exchange.rand.org) is a service much like GitHub but more secure 
-
---- .small
-
-## Slidify
-
-> * The great thing about learning and using markdown is that more and more interactive tools are using it
-
-> * One awesome example of this is [slidify](http://slidify.org)
-
-> * Slidify is a package by Ramnath Vaidyanathan that uses markdown-like documents to create HTML5 presentations
-
-> * If you can write markdown, you can get started with slidify pretty quickly
-
-> * This presentation is an [example](https://github.com/skoval/Reproducibility/blob/master/index.Rmd)
-
-> * RStudio's presentations are another option
+## Task 4. Add Trendlines
 
 
 ---
 
-## Reference Material
 
-<br>
+## Take 4. Make an Interactive Heatmap
 
-* [Slide deck](http://skoval.github.io/Reproducibility/)
 
-* [Source on github](https://github.com/skoval/Reproducibility/)
+---
+
+## Resources 
+
+In addition to package documentation...
+
+* [ggvis -> http://ggvis.rstudio.com](http://ggvis.rstudio.com)
+
+* [googleVis -> https://developers.google.com/chart/](https://developers.google.com/chart/)
+
+* [plotly -> https://plot.ly/r/reference/](https://plot.ly/r/reference/)
+
+* [rCharts -> http://rcharts.io/](http://rcharts.io/)
+
+* [htmlwidgets -> http://www.htmlwidgets.org/](http://www.htmlwidgets.org/)
+
+
+

@@ -1,521 +1,185 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Reproducible Research with R</title>
   <meta charset="utf-8">
-  <meta name="description" content="Reproducible Research with R">
+  <title>Data Viz in R</title>
+  <meta name="description" content="">
   <meta name="author" content="Stephanie Kovalchik">
-  <meta name="generator" content="slidify" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
-    media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/css.css"></link>
-<link rel=stylesheet href="./assets/css/ribbons.css"></link>
-
-  
-  <!-- Grab CDN jQuery, fall back to local if offline -->
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
-  <script data-main="libraries/frameworks/io2012/js/slides" 
-    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
-  </script>
-  
-  
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/zenburn.css" id="theme">
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->  <link rel="stylesheet" href = "./assets/css/css.css">
+<link rel="stylesheet" href = "./assets/css/ribbons.css">
 
 </head>
-<body style="opacity: 0">
-  <slides class="layout-widescreen">
-    
-    <!-- LOGO SLIDE -->
-        <slide class="title-slide segue nobackground">
-  <hgroup class="auto-fadein">
-    <h1>Reproducible Research with R</h1>
-    <h2>Made with slidify</h2>
-    <p>Stephanie Kovalchik<br/>RAND Statistics Group</p>
-  </hgroup>
-  <article></article>  
-</slide>
-    
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class='' data-state='' id='slide-1'>
+  
+  <p><img src="assets/img/dataviz_ad.png" /></p>
 
-    <!-- SLIDES -->
-    <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Reproducibility</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul class = "build incremental">
-<li><p>Reproducibile research is research that can be independently replicated</p></li>
-<li><p>Traditionally, researchers have separated data analysis and the documentation describing the analysis and its findings</p></li>
-<li><p>This makes updating work inefficient and reproducibility difficult or even impossible</p></li>
-<li><p>Aiming for <em>reproducibility</em> gives you <em>reusability</em> for free</p></li>
-</ul>
+</section>
+<section class='' data-state='' id='slide-2'>
+  <h2>Data Viz Versus Graphics</h2>
+  <p style="align:left;color:#669999;background-color:#e0eaea;padding:2%;"><i>Data visualizations</i> are interactive graphics designed for the Web.</p>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-2" style="background:;">
-  <hgroup>
-    <h2>Heroes of Reproducible Research</h2>
-  </hgroup>
-  <article data-timings="">
-    <div style='text-align: center;'>
-    <img alt="Coombes and Baggerly" height='420' src='./assets/img/coombes_baggerly_nytimes.jpg' />
-</div>
-
-<p>&quot;Keith Baggerly, left, and Kevin Coombes, statisticians at M. D. Anderson Cancer Center, <a href="http://www.nytimes.com/2011/07/08/health/research/08genes.html?_r=0">found flaws in research on tumors</a>.&quot; Credit: Michael Stravato for The New York Times</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-3" style="background:;">
-  <article data-timings="">
-    <div style='text-align: center;'>
-    <img alt="Development Cycle" height='560' src='./assets/img/development_cycle.png' />
-</div>
-
-<blockquote>
-<p>The goal of this talk is to introduce several tools in R that help to make the practice of the development cycle easy.</p>
-</blockquote>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-4" style="background:;">
-  <hgroup>
-    <h2>Getting Started</h2>
-  </hgroup>
-  <article data-timings="">
-    <ol>
-<li><p>Get <a href="https://www.rstudio.com">RStudio</a></p></li>
-<li><p>Install <code>knitr</code> and <code>rmarkdown</code> packages</p></li>
-<li><p>Get Git</p></li>
-</ol>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    <h2>RStudio</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul class = "build incremental">
-<li><p><a href="https://www.rstudio.com">RStudio</a> is a free integrated development environment for R</p></li>
-<li><p>Available for all major platforms</p></li>
-<li><p>The IDE provides a windowing system to help organize the workspace</p></li>
-<li><p>There are <a href="https://www.rstudio.com/products/rstudio/features/">built-in tools</a> for directed code execution, syntax highlighting, and debugging</p></li>
-<li><p>There is a GUI for many common tasks including the creation and processing of reproducible reports</p></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-6" style="background:;">
-  <hgroup>
-    <h2>R Markdown</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul class = "build incremental">
-<li><p>Dynamic documents in R start with an R Markdown file</p></li>
-<li><p>Markdown is a markup language with minimal syntax</p>
+<p><img src="assets/img/dataviz_model.png" width='400px' height='200px' /></p>
 
 <ul>
-<li>Easier than LaTeX</li>
-<li>Recognized by many rendering tools</li>
-<li>NOT exclusive to R</li>
+<li>Unlike traditional static graphical displays, data visualizations are:
+
+<ul>
+<li>Built for the Web</li>
+<li>Interactive</li>
+<li>Dynamic</li>
 </ul></li>
-<li><p>R Markdown builds on markdown syntax but adds the ability to embed executable R code inline or as code chunks</p></li>
-<li><p>The <code>knit</code> function of knitr is used to produce a file with text, code, and results of code</p></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    <h2>R Markdown Resources</h2>
-  </hgroup>
-  <article data-timings="">
-    <p><br></p>
-
-<ul>
-<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">Cheat sheet</a> - Workflow steps and basic features</p></li>
-<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">Reference</a> - Details on syntax and chunk options</p></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-8" style="background:;">
-  <hgroup>
-    <h2>Minimal Example: R Markdown</h2>
-  </hgroup>
-  <article data-timings="">
-    <p><br></p>
-
-<p>File available on <a href="https://github.com/skoval/Reproducibility/blob/master/examples/minimal_markdown.Rmd">GitHub</a></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="small" id="slide-9" style="background:;">
-  <hgroup>
-    <h2>The knitr Package</h2>
-  </hgroup>
-  <article data-timings="">
-    
-<div style='float:left;width:48%;' class='centered'>
+</section>
+<section class='' data-state='' id='slide-3'>
+  <h2>Why Data Viz in R?</h2>
   <ul>
-<li><p><img alt="Yihui" height='80' src='./assets/img/yihui.jpg' /> Author and R Ninja, Yihui Xie</p></li>
-<li><p>Provides tools for creating dynamic documents</p></li>
-<li><p>Use to weave text and code in multiple languages</p></li>
-<li><p>Multiple input formats: Rnw, Markdown, HTML, LaTeX</p></li>
-<li><p>Multiple output formats: pdf, Word, HTML</p></li>
-<li><p>RStudio&#39;s default engine for weaving dynamic documents is <a href="http://yihui.name/knitr/demo/rstudio/">knitr</a></p></li>
+<li><p>Majority of R tools for data viz are basically a set of functions to write javascript (js) output</p></li>
+<li><p>Chances are, if you are looking at an interactive graphic on the Web, it&#39;s written in js using a library like d3</p></li>
+<li><p>But...<u>what if you don&#39;t know js?</u> or <u>you have to do a lot of analysis</u> to produce the output for your chart?</p></li>
 </ul>
 
-</div>
-<div style='float:right;width:48%;'>
-  <div style='text-align: center;'>
-    <img alt="knitr book" height='420' src='./assets/img/knitr_book.png' />
-</div>
+</section>
+<section class='' data-state='' id='slide-4'>
+  <h2>Popular R Tools for Data Viz</h2>
+  <ul>
+<li><p>ggvis</p></li>
+<li><p>googleVis</p></li>
+<li><p>plotly</p></li>
+<li><p>rCharts</p></li>
+<li><p>htmlwidgets</p></li>
+</ul>
 
-</div>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+</section>
+<section class='' data-state='' id='slide-5'>
+  <h2>Overview</h2>
+  <p><img src="assets/img/comparison_table.png" /></p>
 
-<slide class="" id="slide-10" style="background:;">
-  <hgroup>
-    <h2>Knit in Console or RStudio?</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>You can knit R Markdown files manually with <code>knit</code> or with RStudio&#39;s GUI. In other words, the following are equivalent:</p>
+</section>
+<section class='' data-state='' id='slide-6'>
+  <h2>Demonstration</h2>
+  <ul>
+<li><p>It is easiest to understand the differences between the visualization tools by seeing them in action</p></li>
+<li><p>In what follows, I&#39;ll use R&#39;s built-in dataset <code>state.x77</code> to conduct several charting exercises</p></li>
+</ul>
 
-<pre><code class="r">knit(&quot;minimal_example.Rmd&quot;)
+<pre><code class="r">data(state)
+state.x77 &lt;- as.data.frame(state.x77)
+str(state.x77)
 </code></pre>
 
-<p><br></p>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  8 variables:
+##  $ Population: num  3615 365 2212 2110 21198 ...
+##  $ Income    : num  3624 6315 4530 3378 5114 ...
+##  $ Illiteracy: num  2.1 1.5 1.8 1.9 1.1 0.7 1.1 0.9 1.3 2 ...
+##  $ Life Exp  : num  69 69.3 70.5 70.7 71.7 ...
+##  $ Murder    : num  15.1 11.3 7.8 10.1 10.3 6.8 3.1 6.2 10.7 13.9 ...
+##  $ HS Grad   : num  41.3 66.7 58.1 39.9 62.6 63.9 56 54.6 52.6 40.6 ...
+##  $ Frost     : num  20 152 15 65 20 166 139 103 11 60 ...
+##  $ Area      : num  50708 566432 113417 51945 156361 ...
+</code></pre>
 
-<div style='text-align: center;'>
-    <img alt="knitr gui" height='320' src='./assets/img/knitr_gui.png' />
-</div>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-11" style="background:;">
-  <hgroup>
-    <h2>Knit in Console or RStudio?</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul class = "build incremental">
-<li><p>If you want to use input other than R Markdown, you will want to use <code>knit</code> directly (i.e. on the command line).</p></li>
-<li><p>The advantage of <code>knitr</code> is that it provides more control and flexibility in document inputs</p></li>
-<li><p>This is often needed for creating publication-ready reports</p></li>
+</section>
+<section class='' data-state='' id='slide-7'>
+  <h2>Task 1. Distribution of State Illiteracy</h2>
+  <ul>
+<li>Make the following static histogram interactive</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<pre><code class="r"># Static plot
+library(ggplot2)
+ggplot(state.x77, aes(x = Illiteracy)) +
+  geom_histogram(binwidth = 0.5, fill = &quot;#663399&quot;)
+</code></pre>
 
-<slide class="" id="slide-12" style="background:;">
-  <hgroup>
-    <h2>Minimal Example: R Latex</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>File available on <a href="https://github.com/skoval/Reproducibility/blob/master/examples/minimal_markdown.Rtex">GitHub</a></p>
+<p><img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"> </p>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+</section>
+<section class='' data-state='' id='slide-8'>
+  <h2>Demo - Histogram</h2>
+  <p>[link]</p>
 
-<slide class="" id="slide-13" style="background:;">
-  <hgroup>
-    <h2>Version Control</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul class = "build incremental">
-<li><p><em>Version control</em> describes the process of tracking the history of a project&#39;s development so that developers can easily see changes made and revert to earlier versions</p></li>
-<li><p>Git is the most popular version control tool</p></li>
-<li><p><a href="https://github.com">Github</a> is a cloud service for sharing and collaborating on projects using Git </p></li>
-<li><p><img alt="Git" height='120' src='./assets/img/try_git.png' /> </p></li>
+</section>
+<section class='' data-state='' id='slide-9'>
+  <h2>Task 2. State Illiteracy Versus Income</h2>
+  <ul>
+<li>Make the following scatterplot interactive</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<pre><code class="r"># Static plot
+ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
+  geom_point(size = 3, col = &quot;#663399&quot;)   
+</code></pre>
 
-<slide class="" id="slide-14" style="background:;">
-  <hgroup>
-    <h2>Git Cheat Sheet</h2>
-  </hgroup>
-  <article data-timings="">
-    <div style='text-align: center;'>
-    <img alt="Git Cheat Sheet" height='480' src='./assets/img/git_cheatsheet.png' />
-</div>
+<p><img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"> </p>
 
-<p>Source: <a href="http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf">http://git.or.cz/</a></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="small" id="slide-15" style="background:;">
-  <hgroup>
-    <h2>Getting Started</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li><p>You can work with <a href="http://git-scm.com">Git</a> on the command line</p></li>
-<li><p>Or, use a GUI for <a href="https://windows.github.com">Windows</a> or <a href="https://mac.github.com">Mac</a></p></li>
-</ul>
-
-<table><thead>
-<tr>
-<th align="center">Term</th>
-<th align="center">What it Means</th>
-</tr>
-</thead><tbody>
-<tr>
-<td align="center">repo</td>
-<td align="center">The &quot;project&quot;, i.e. directory where Git project resides</td>
-</tr>
-<tr>
-<td align="center">commit</td>
-<td align="center">Saving changes to version history (NOT the same as saving files)</td>
-</tr>
-<tr>
-<td align="center">origin</td>
-<td align="center">Alias usually given to remote repo</td>
-</tr>
-<tr>
-<td align="center">master</td>
-<td align="center">Alias usually given to local repo</td>
-</tr>
-</tbody></table>
-
-<p><br></p>
-
-<table><thead>
-<tr>
-<th align="center">Command</th>
-<th align="center">What it Does</th>
-</tr>
-</thead><tbody>
-<tr>
-<td align="center">git init</td>
-<td align="center">Start a repo</td>
-</tr>
-<tr>
-<td align="center">git add</td>
-<td align="center">Add files to repo</td>
-</tr>
-<tr>
-<td align="center">git commit -m</td>
-<td align="center">Commit changes to history and add message</td>
-</tr>
-<tr>
-<td align="center">git push origin master</td>
-<td align="center">Push commits to remote alias</td>
-</tr>
-</tbody></table>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="small" id="slide-16" style="background:;">
-  <hgroup>
-    <h2>RAND Code Exchange</h2>
-  </hgroup>
-  <article data-timings="">
-    <div style='text-align: center;'>
-    <img alt="code exchange" height='280' src='./assets/img/code_exchange.png' />
-</div>
-
-<ul class = "build incremental">
-<li><p>RAND&#39;s firewall prevents interacting with remote repos on GitHub </p></li>
-<li><p>This is a barrier when collaborating on projects with external researchers</p></li>
-<li><p>However, for internal projects, RAND&#39;s <a href="code-exchange.rand.org">Code Exchange</a> is a service much like GitHub but more secure </p></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="small" id="slide-17" style="background:;">
-  <hgroup>
-    <h2>Slidify</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul class = "build incremental">
-<li><p>The great thing about learning and using markdown is that more and more interactive tools are using it</p></li>
-<li><p>One awesome example of this is <a href="http://slidify.org">slidify</a></p></li>
-<li><p>Slidify is a package by Ramnath Vaidyanathan that uses markdown-like documents to create HTML5 presentations</p></li>
-<li><p>If you can write markdown, you can get started with slidify pretty quickly</p></li>
-<li><p>This presentation is an <a href="https://github.com/skoval/Reproducibility/blob/master/index.Rmd">example</a></p></li>
-<li><p>RStudio&#39;s presentations are another option</p></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-18" style="background:;">
-  <hgroup>
-    <h2>Reference Material</h2>
-  </hgroup>
-  <article data-timings="">
-    <p><br></p>
+</section>
+<section class='' data-state='' id='slide-10'>
+  <h2>Task 3. Add State as a Tooltip</h2>
+  
+</section>
+<section class='' data-state='' id='slide-11'>
+  <h2>Task 4. Add Trendlines</h2>
+  
+</section>
+<section class='' data-state='' id='slide-12'>
+  <h2>Take 4. Make an Interactive Heatmap</h2>
+  
+</section>
+<section class='' data-state='' id='slide-13'>
+  <h2>Resources</h2>
+  <p>In addition to package documentation...</p>
 
 <ul>
-<li><p><a href="http://skoval.github.io/Reproducibility/">Slide deck</a></p></li>
-<li><p><a href="https://github.com/skoval/Reproducibility/">Source on github</a></p></li>
+<li><p><a href="http://ggvis.rstudio.com">ggvis -&gt; http://ggvis.rstudio.com</a></p></li>
+<li><p><a href="https://developers.google.com/chart/">googleVis -&gt; https://developers.google.com/chart/</a></p></li>
+<li><p><a href="https://plot.ly/r/reference/">plotly -&gt; https://plot.ly/r/reference/</a></p></li>
+<li><p><a href="http://rcharts.io/">rCharts -&gt; http://rcharts.io/</a></p></li>
+<li><p><a href="http://www.htmlwidgets.org/">htmlwidgets -&gt; http://www.htmlwidgets.org/</a></p></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-    <slide class="backdrop"></slide>
-  </slides>
-  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
-    <ul>
-      <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Reproducibility'>
-         1
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Heroes of Reproducible Research'>
-         2
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title=''>
-         3
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Getting Started'>
-         4
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='RStudio'>
-         5
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='R Markdown'>
-         6
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='R Markdown Resources'>
-         7
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Minimal Example: R Markdown'>
-         8
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='The knitr Package'>
-         9
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='Knit in Console or RStudio?'>
-         10
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Knit in Console or RStudio?'>
-         11
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Minimal Example: R Latex'>
-         12
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Version Control'>
-         13
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Git Cheat Sheet'>
-         14
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Getting Started'>
-         15
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='RAND Code Exchange'>
-         16
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Slidify'>
-         17
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Reference Material'>
-         18
-      </a>
-    </li>
-  </ul>
-  </div>  <!--[if IE]>
-    <script 
-      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
-    </script>
-    <script>CFInstall.check({mode: 'overlay'});</script>
-  <![endif]-->
+</section>
+    </div>
+  </div>
 </body>
-  <!-- Load Javascripts for Widgets -->
-  
-  <!-- LOAD HIGHLIGHTER JS FILES -->
-  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
-   
-  </html>
+  <script src="libraries/frameworks/revealjs/lib/js/head.min.js"></script>
+  <script src="libraries/frameworks/revealjs/js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    theme: Reveal.getQueryHash().theme || 'solarized', 
+    transition: Reveal.getQueryHash().transition || 'none', 
+    dependencies: [
+    // Cross-browser shim that fully implements classList -
+    // https://github.com/eligrey/classList.js/
+      { src: 'libraries/frameworks/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList;}},
+      // Zoom in and out with Alt+click
+      { src: 'libraries/frameworks/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Speaker notes
+      { src: 'libraries/frameworks/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Remote control your reveal.js presentation using a touch device
+      //{ src: 'libraries/frameworks/revealjs/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+  });
+  </script>  <!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+ 
+
+</html>
