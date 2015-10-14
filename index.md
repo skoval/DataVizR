@@ -90,7 +90,7 @@ str(state.x77)
 
 ## Task 1. Distribution of State Illiteracy
 
-* Make the following static histogram interactive
+How can we make this histogram interactive?
 
 
 ```r
@@ -106,13 +106,13 @@ ggplot(state.x77, aes(x = Illiteracy)) +
 
 ## Demo - Histogram
 
-[link]
+[demo-histogram.R](https://github.com/skoval/DataVizR/raw/master/demo-histogram.R)
 
 ---
 
 ## Task 2. State Illiteracy Versus Income 
 
-* Make the following scatterplot interactive
+How can we make this scatterplot interactive?
 
 
 ```r
@@ -125,18 +125,109 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
 
 ---
 
-## Task 3. Add State as a Tooltip
+## Demo - Scatterplot
+
+[demo-scatter.R](https://github.com/skoval/DataVizR/raw/master/demo-scatter.R)
 
 ---
 
 ## Task 4. Add Trendlines
 
+How can we add fitted lines to the scatterplot?
+
+
+```r
+ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
+  geom_point(size = 3, col = "#663399") +
+  geom_smooth(method = "loess", col = "#663399", fill = "#663399")
+```
+
+![plot of chunk unnamed-chunk-4](assets/fig/unnamed-chunk-4-1.png) 
 
 ---
 
+## Demo - Trendlines
 
-## Take 4. Make an Interactive Heatmap
+[demo-scatter-trends.R](https://github.com/skoval/DataVizR/raw/master/demo-scatter-trends.R)
 
+---
+
+## Task 4. Group Points
+
+How can we group on a third variable?
+
+
+```r
+colors <- colorRampPalette(c("#663399","#669999"))(4)
+state.x77$region <- state.region
+ggplot(state.x77, aes(y = Illiteracy, x = Income, colour = region)) +
+  geom_point(size = 3) +
+  scale_colour_manual("Region", values = colors)
+```
+
+![plot of chunk unnamed-chunk-5](assets/fig/unnamed-chunk-5-1.png) 
+
+---
+
+## Demo - Grouping Points
+
+[demo-grouping.R](https://github.com/skoval/DataVizR/raw/master/demo-grouping.R)
+
+---
+
+## Task 5. Add State as a Tooltip
+
+Tooltips are a way to avoid cluttered labels. How are they created in visualizations?
+
+
+```r
+state.x77$state <- rownames(state.x77)
+ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
+  geom_point(size = 3, colour = colors[1]) +
+  geom_text(aes(label = state)) 
+```
+
+![plot of chunk unnamed-chunk-6](assets/fig/unnamed-chunk-6-1.png) 
+
+---
+
+## Demo - Tooltip
+
+[demo-tooltip.R](https://github.com/skoval/DataVizR/raw/master/demo-tooltip.R)
+
+---
+
+## Task 6. Adding  Controls
+
+Controls add interactivity that aren't possible with a static plot. How are controls added to visualizations?
+
+
+```r
+ggplot(state.x77, aes(x = Illiteracy)) +
+  geom_histogram(binwidth = 0.5, fill = "#663399")
+```
+
+![plot of chunk unnamed-chunk-7](assets/fig/unnamed-chunk-7-1.png) 
+
+---
+
+## Demo - Controls
+
+[demo-controls.R](https://github.com/skoval/DataVizR/raw/master/demo-controls.R)
+
+---
+
+## Specialty Plots with htmlwidgets
+
+* _Widgets_ are a way to add new types of HTML output to R markdown documents
+
+* This can be useful for enabling R to interact with javascript libraries like <code>d3</code> or <code>leaflet</code>
+
+* Existing widgets (dygraphs, networkD3, d3heatmap) are just R packages
+
+* You can also create your own widgets with <code>htmlwidgets</code>
+
+* Some examples can be found at [http://www.htmlwidgets.org/](http://www.htmlwidgets.org/)
 
 ---
 

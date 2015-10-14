@@ -92,9 +92,7 @@ str(state.x77)
 </section>
 <section class='' data-state='' id='slide-7'>
   <h2>Task 1. Distribution of State Illiteracy</h2>
-  <ul>
-<li>Make the following static histogram interactive</li>
-</ul>
+  <p>How can we make this histogram interactive?</p>
 
 <pre><code class="r"># Static plot
 library(ggplot2)
@@ -107,14 +105,12 @@ ggplot(state.x77, aes(x = Illiteracy)) +
 </section>
 <section class='' data-state='' id='slide-8'>
   <h2>Demo - Histogram</h2>
-  <p>[link]</p>
+  <p><a href="https://github.com/skoval/DataVizR/raw/master/demo-histogram.R">demo-histogram.R</a></p>
 
 </section>
 <section class='' data-state='' id='slide-9'>
   <h2>Task 2. State Illiteracy Versus Income</h2>
-  <ul>
-<li>Make the following scatterplot interactive</li>
-</ul>
+  <p>How can we make this scatterplot interactive?</p>
 
 <pre><code class="r"># Static plot
 ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
@@ -125,18 +121,92 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
 
 </section>
 <section class='' data-state='' id='slide-10'>
-  <h2>Task 3. Add State as a Tooltip</h2>
-  
+  <h2>Demo - Scatterplot</h2>
+  <p><a href="https://github.com/skoval/DataVizR/raw/master/demo-scatter.R">demo-scatter.R</a></p>
+
 </section>
 <section class='' data-state='' id='slide-11'>
   <h2>Task 4. Add Trendlines</h2>
-  
+  <p>How can we add fitted lines to the scatterplot?</p>
+
+<pre><code class="r">ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
+  geom_point(size = 3, col = &quot;#663399&quot;) +
+  geom_smooth(method = &quot;loess&quot;, col = &quot;#663399&quot;, fill = &quot;#663399&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"> </p>
+
 </section>
 <section class='' data-state='' id='slide-12'>
-  <h2>Take 4. Make an Interactive Heatmap</h2>
-  
+  <h2>Demo - Trendlines</h2>
+  <p><a href="https://github.com/skoval/DataVizR/raw/master/demo-scatter-trends.R">demo-scatter-trends.R</a></p>
+
 </section>
 <section class='' data-state='' id='slide-13'>
+  <h2>Task 4. Group Points</h2>
+  <p>How can we group on a third variable?</p>
+
+<pre><code class="r">colors &lt;- colorRampPalette(c(&quot;#663399&quot;,&quot;#669999&quot;))(4)
+state.x77$region &lt;- state.region
+ggplot(state.x77, aes(y = Illiteracy, x = Income, colour = region)) +
+  geom_point(size = 3) +
+  scale_colour_manual(&quot;Region&quot;, values = colors)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"> </p>
+
+</section>
+<section class='' data-state='' id='slide-14'>
+  <h2>Demo - Grouping Points</h2>
+  <p><a href="https://github.com/skoval/DataVizR/raw/master/demo-grouping.R">demo-grouping.R</a></p>
+
+</section>
+<section class='' data-state='' id='slide-15'>
+  <h2>Task 5. Add State as a Tooltip</h2>
+  <p>Tooltips are a way to avoid cluttered labels. How are they created in visualizations?</p>
+
+<pre><code class="r">state.x77$state &lt;- rownames(state.x77)
+ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
+  geom_point(size = 3, colour = colors[1]) +
+  geom_text(aes(label = state)) 
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+</section>
+<section class='' data-state='' id='slide-16'>
+  <h2>Demo - Tooltip</h2>
+  <p><a href="https://github.com/skoval/DataVizR/raw/master/demo-tooltip.R">demo-tooltip.R</a></p>
+
+</section>
+<section class='' data-state='' id='slide-17'>
+  <h2>Task 6. Adding  Controls</h2>
+  <p>Controls add interactivity that aren&#39;t possible with a static plot. How are controls added to visualizations?</p>
+
+<pre><code class="r">ggplot(state.x77, aes(x = Illiteracy)) +
+  geom_histogram(binwidth = 0.5, fill = &quot;#663399&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7"> </p>
+
+</section>
+<section class='' data-state='' id='slide-18'>
+  <h2>Demo - Controls</h2>
+  <p><a href="https://github.com/skoval/DataVizR/raw/master/demo-controls.R">demo-controls.R</a></p>
+
+</section>
+<section class='' data-state='' id='slide-19'>
+  <h2>Specialty Plots with htmlwidgets</h2>
+  <ul>
+<li><p><em>Widgets</em> are a way to add new types of HTML output to R markdown documents</p></li>
+<li><p>This can be useful for enabling R to interact with javascript libraries like <code>d3</code> or <code>leaflet</code></p></li>
+<li><p>Existing widgets (dygraphs, networkD3, d3heatmap) are just R packages</p></li>
+<li><p>You can also create your own widgets with <code>htmlwidgets</code></p></li>
+<li><p>Some examples can be found at <a href="http://www.htmlwidgets.org/">http://www.htmlwidgets.org/</a></p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-20'>
   <h2>Resources</h2>
   <p>In addition to package documentation...</p>
 

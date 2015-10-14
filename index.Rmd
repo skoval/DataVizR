@@ -90,7 +90,7 @@ ggplot(state.x77, aes(x = Illiteracy)) +
 
 ## Demo - Histogram
 
-[link]
+[demo-histogram.R](https://github.com/skoval/DataVizR/raw/master/demo-histogram.R)
 
 ---
 
@@ -106,6 +106,12 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
 
 ---
 
+## Demo - Scatterplot
+
+[demo-scatter.R](https://github.com/skoval/DataVizR/raw/master/demo-scatter.R)
+
+---
+
 ## Task 4. Add Trendlines
 
 How can we add fitted lines to the scatterplot?
@@ -115,6 +121,12 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
   geom_point(size = 3, col = "#663399") +
   geom_smooth(method = "loess", col = "#663399", fill = "#663399")
 ```
+
+---
+
+## Demo - Trendlines
+
+[demo-scatter-trends.R](https://github.com/skoval/DataVizR/raw/master/demo-scatter-trends.R)
 
 ---
 
@@ -132,6 +144,12 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income, colour = region)) +
 
 ---
 
+## Demo - Grouping Points
+
+[demo-grouping.R](https://github.com/skoval/DataVizR/raw/master/demo-grouping.R)
+
+---
+
 ## Task 5. Add State as a Tooltip
 
 Tooltips are a way to avoid cluttered labels. How are they created in visualizations?
@@ -145,6 +163,12 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
 
 ---
 
+## Demo - Tooltip
+
+[demo-tooltip.R](https://github.com/skoval/DataVizR/raw/master/demo-tooltip.R)
+
+---
+
 ## Task 6. Adding  Controls
 
 Controls add interactivity that aren't possible with a static plot. How are controls added to visualizations?
@@ -153,6 +177,12 @@ Controls add interactivity that aren't possible with a static plot. How are cont
 ggplot(state.x77, aes(x = Illiteracy)) +
   geom_histogram(binwidth = 0.5, fill = "#663399")
 ```
+
+---
+
+## Demo - Controls
+
+[demo-controls.R](https://github.com/skoval/DataVizR/raw/master/demo-controls.R)
 
 ---
 
@@ -183,6 +213,8 @@ In addition to package documentation...
 * [rCharts -> http://rcharts.io/](http://rcharts.io/)
 
 * [htmlwidgets -> http://www.htmlwidgets.org/](http://www.htmlwidgets.org/)
+
+* [Slides for this talk -> ]
 
 
 
