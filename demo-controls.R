@@ -26,16 +26,13 @@ hist.gvis <- state.x77 %>%
   ggvis(x = ~Illiteracy) %>% 
   layer_histograms(width = input_slider(0, 1, step = 0.1, label = "Bin Width"), fill := "#663399")
 
+hist.gvis
+
 # RCHARTS - HISTOGRAM
 gg2 <- rPlot(Illiteracy ~ Income, 
              data = state.x77, 
              color = list(const = "#663399"),
              type = "point")
-
-gg2$guides(
-  x = list(min = 0, max = max(state.x77$Income)),
-  y = list(min = 0, max = max(state.x77$Illiteracy))
-)
 
 gg2$addControls("x", value = "Income", values = c("Population", "Income", "Murder"))
 
