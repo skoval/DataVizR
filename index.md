@@ -245,5 +245,7 @@ In addition to package documentation...
 
 * [htmlwidgets -> http://www.htmlwidgets.org/](http://www.htmlwidgets.org/)
 
+* [Slides for this talk -> http://skoval.github.io/DataVizR](http://skoval.github.io/DataVizR)
+
 
 
