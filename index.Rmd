@@ -110,7 +110,7 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
 
 How can we add fitted lines to the scatterplot?
 
-```{r}
+```{r message = FALSE, fig.height=5, fig.width=6}
 ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
   geom_point(size = 3, col = "#663399") +
   geom_smooth(method = "loess", col = "#663399", fill = "#663399")
@@ -122,7 +122,7 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
 
 How can we group on a third variable?
 
-```{r}
+```{r message = FALSE, fig.height=5, fig.width=6}
 colors <- colorRampPalette(c("#663399","#669999"))(4)
 state.x77$region <- state.region
 ggplot(state.x77, aes(y = Illiteracy, x = Income, colour = region)) +
@@ -134,15 +134,39 @@ ggplot(state.x77, aes(y = Illiteracy, x = Income, colour = region)) +
 
 ## Task 5. Add State as a Tooltip
 
+Tooltips are a way to avoid cluttered labels. How are they created in visualizations?
+
+```{r message = FALSE, fig.height=5, fig.width=6}
+state.x77$state <- rownames(state.x77)
+ggplot(state.x77, aes(y = Illiteracy, x = Income)) +
+  geom_point(size = 3, colour = colors[1]) +
+  geom_text(aes(label = state)) 
+```
+
 ---
 
+## Task 6. Adding  Controls
 
-## Task 6. Add Controls
+Controls add interactivity that aren't possible with a static plot. How are controls added to visualizations?
+
+```{r message = FALSE, fig.height=5, fig.width=6}
+ggplot(state.x77, aes(x = Illiteracy)) +
+  geom_histogram(binwidth = 0.5, fill = "#663399")
+```
 
 ---
 
-## Take 7. Make an Interactive Heatmap
+## Specialty Plots with htmlwidgets
 
+* _Widgets_ are a way to add new types of HTML output to R markdown documents
+
+* This can be useful for enabling R to interact with javascript libraries like <code>d3</code> or <code>leaflet</code>
+
+* Existing widgets (dygraphs, networkD3, d3heatmap) are just R packages
+
+* You can also create your own widgets with <code>htmlwidgets</code>
+
+* Some examples can be found at [http://www.htmlwidgets.org/](http://www.htmlwidgets.org/)
 
 ---
 

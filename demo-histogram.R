@@ -28,13 +28,6 @@ hist.gvis <- state.x77 %>%
 
 hist.gvis
 
-  # add a slider for interactive binning 
-hist.gvis <- state.x77 %>% 
-  ggvis(x = ~Illiteracy) %>% 
-  layer_histograms(width = input_slider(0, 1, step = 0.1, label = "Bin Width"), fill := "#663399")
-
-hist.gvis
-
 # GGPLOTLY - HISTOGRAM
 gg1 <- ggplot(state.x77, aes(x = Illiteracy)) +
          geom_histogram(binwidth = 0.5, fill = "#663399")
